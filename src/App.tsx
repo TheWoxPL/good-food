@@ -1,10 +1,5 @@
 function App() {
-  return <>Good Food Essa
-  
-  
-  
-  
-  </>;
+  return <>Good Food</>;
 }
 
 export default App;
