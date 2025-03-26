@@ -1,13 +1,13 @@
 {
-"compilerOptions": {
-  "baseUrl": "./",
-  "paths": {
-    "@/*": ["src/*"]
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true
   },
-  "jsx": "react-jsx",
-  "moduleResolution": "node",
-  "esModuleInterop": true,
-  "strict": true
-},
-"include": ["src", "declaration.d.ts"]
+  "include": ["src", "declaration.d.ts"]
 }
