@@ -3,8 +3,20 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import App from './App';
 import { AboutPage, LoginPage } from './pages/';
+import { registerSW } from 'virtual:pwa-register';
 
 import '../index.css';
+
+const updateSW = registerSW({
+  onNeedRefresh() {
+    if (confirm('New version available. Reload?')) {
+      updateSW(true);
+    }
+  },
+  onOfflineReady() {
+    console.log('App is ready to work offline!');
+  },
+});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,18 +31,4 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>
 );
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then(
-      (registration) => {
-        console.log(
-          'Service Worker registered with scope:',
-          registration.scope
-        );
-      },
-      (error) => {
-        console.log('Service Worker registration failed:', error);
-      }
-    );
-  });
-}
+
