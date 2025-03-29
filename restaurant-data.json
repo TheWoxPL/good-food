@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Pizza Hut",
+    "description": "A globally recognized chain specializing in a variety of pizzas, pasta, and sides, offering a family-friendly dining experience.",
+    "foodList":   [
+      { "name": "Pepperoni Pizza", "price": 12.99 },
+      { "name": "Margherita Pizza", "price": 10.99 },
+      { "name": "BBQ Chicken Pizza", "price": 14.99 },
+      { "name": "Garlic Bread", "price": 5.99 }
+    ]
+  },
+  {
+    "name": "KFC",
+    "description": "An iconic fast-food chain renowned for its signature fried chicken, prepared with a secret blend of 11 herbs and spices.",
+    "foodList": [
+      { "name": "Original Recipe Chicken", "price": 8.99 },
+      { "name": "Zinger Burger", "price": 6.99 },
+      { "name": "Popcorn Chicken", "price": 4.99 },
+      { "name": "Mashed Potatoes", "price": 3.99 }
+    ]},
+  {
+    "name": "Max Premium Burgers",
+    "description": "A Swedish fast-food chain offering high-quality burgers made with fresh, sustainable ingredients and innovative flavors.",
+    "foodList": [
+      { "name": "Original Recipe Chicken", "price": 8.99 },
+      { "name": "Zinger Burger", "price": 6.99 },
+      { "name": "Popcorn Chicken", "price": 4.99 },
+      { "name": "Mashed Potatoes", "price": 3.99 }
+    ]
+  },
+  {
+    "name": "Doner Kebab",
+    "description": "A popular restaurant chain serving authentic German-style kebabs, crafted with fresh vegetables, flavorful sauces, and premium meats.",
+    "foodList": [
+      { "name": "Original Recipe Chicken", "price": 8.99 },
+      { "name": "Zinger Burger", "price": 6.99 },
+      { "name": "Popcorn Chicken", "price": 4.99 },
+      { "name": "Mashed Potatoes", "price": 3.99 }
+    ]
+  }
+]

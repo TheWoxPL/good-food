@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import App from './App';
-import { AboutPage, LoginPage } from './pages/';
+import { AboutPage, LoginPage , RestaurantList } from './pages/';
 import { registerSW } from 'virtual:pwa-register';
 
 import '../index.css';
@@ -25,10 +25,9 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/restaurants" element={<RestaurantList />} />
       </Routes>
     </BrowserRouter>
     <App />
   </StrictMode>
 );
-
-
