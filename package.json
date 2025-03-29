@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --fix --ignore-pattern src/components/ui/",
+    "lint": "eslint . --fix",
     "preview": "vite preview",
     "format": "prettier --write .",
     "prepare": "husky",
