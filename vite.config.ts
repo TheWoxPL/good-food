@@ -6,12 +6,14 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss() , 
+  plugins: [
+    react(),
+    tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate', // Ensures SW is always updated
       devOptions: {
         enabled: true, // Allows testing in dev mode
-        type: "module"
+        type: 'module',
       },
       manifest: {
         name: 'PWA Guide',
@@ -19,20 +21,20 @@ export default defineConfig({
         start_url: '/',
         background_color: '#ffffff',
         theme_color: '#000000',
-        display: "standalone", // Important for PWA
+        display: 'standalone', // Important for PWA
         icons: [
           {
-            src: "/goodFood.png",
-            sizes: "192x192",
-            type: "image/png",
+            src: '/goodFood.png',
+            sizes: '192x192',
+            type: 'image/png',
           },
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}'],
       },
     }),
-],
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
