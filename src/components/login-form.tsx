@@ -16,6 +16,11 @@ export function LoginForm({
 }: React.ComponentProps<'div'>) {
   const { signInWithGoogle, signOut } = UserAuth();
 
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    alert('Form submitted');
+  };
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
@@ -26,7 +31,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={(e) => handleFormSubmit(e)}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full" onClick={signOut}>
