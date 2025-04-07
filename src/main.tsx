@@ -1,7 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { AboutPage, LoginPage, RestaurantList, HomePage } from './pages/';
+import {
+  AboutPage,
+  LoginPage,
+  RestaurantList,
+  HomePage,
+  ProductPage,
+} from './pages/';
 import { registerSW } from 'virtual:pwa-register';
 
 import '../index.css';
@@ -26,6 +32,7 @@ createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="/restaurants" element={<RestaurantList />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
           </Route>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
