@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 export const AboutPage = () => {
   return (
-    <div className="max-w-5xl mx-auto p-10 font-sans text-gray-900 text-center">
+    <div className="max-w-5xl mx-auto p-8 font-sans text-gray-800 text-center min-h-screen flex flex-col justify-between">
       <header className="mb-12">
         <h1 className="text-4xl font-bold">About Us</h1>
         <p className="text-lg text-gray-700 mt-2">
@@ -59,34 +59,37 @@ export const AboutPage = () => {
         ))}
       </div>
 
-      <footer className="absolute bottom-6 left-6 text-left text-gray-700 text-lg">
-        <p className="text-xl font-semibold">Kontakt: goodfood@gmail.com</p>
-        <div className="mt-4">
-          <p className="text-xl font-semibold">Nasze media społecznościowe</p>
-          <div className="flex gap-6 mt-2">
+      <footer className="w-full flex flex-col md:flex-row justify-between items-start text-gray-600 text-lg mt-12 pb-6">
+        <div className="flex flex-col sm:items-center sm:w-full sm:text-center md:items-center md:text-center md:w-auto mb-6 md:mb-0">
+          <p className="font-semibold">Kontakt:</p>
+          <p>goodfood@gmail.com</p>
+        </div>
+
+        <hr className="sm:hidden border-t-2 border-gray-300 my-4 w-full" />
+
+        <div className="flex flex-col sm:items-center sm:w-full sm:text-center md:items-center md:text-center md:w-auto">
+          <p className="font-semibold mb-2">Nasze media społecznościowe:</p>
+          <div className="flex gap-6 justify-center">
             <a
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-blue-600"
             >
-              <Facebook size={32} />
+              <Facebook className="w-7 h-7 text-gray-500 hover:text-blue-600" />
             </a>
             <a
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-black"
             >
-              <Twitter size={32} />
+              <Twitter className="w-7 h-7 text-gray-500 hover:text-blue-400" />
             </a>
             <a
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-pink-600"
             >
-              <Instagram size={32} />
+              <Instagram className="w-7 h-7 text-gray-500 hover:text-pink-500" />
             </a>
           </div>
         </div>
