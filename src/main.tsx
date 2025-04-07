@@ -24,8 +24,9 @@ createRoot(document.getElementById('root')!).render(
     <AuthContextProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ProtectedRoute />} />
-          <Route path="/restaurants" element={<RestaurantList />} />
+          <Route path="/" element={<ProtectedRoute />}>
+            <Route path="/restaurants" element={<RestaurantList />} />
+          </Route>
           <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/Home" element={<HomePage />} />
