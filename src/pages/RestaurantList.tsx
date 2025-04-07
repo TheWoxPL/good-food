@@ -4,31 +4,57 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { db } from '@/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { Product, Restaurant } from '@/types';
+import { useNavigate } from 'react-router';
 
 export const RestaurantList = () => {
-  const [restaurants, setRestaurants] = useState([]);
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant>();
+  const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRestaurants = async () => {
       const querySnapshot = await getDocs(collection(db, 'restaurants'));
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const data: Restaurant[] = querySnapshot.docs.map((doc) => {
+        const restaurantData = doc.data();
+        return {
+          id: doc.id,
+          name: restaurantData.name,
+          description: restaurantData.description,
+        };
+      });
       setRestaurants(data);
     };
 
     fetchRestaurants();
   }, []);
 
-  const handleSelect = (restaurant) => {
+  const handleSelect = async (restaurant: Restaurant) => {
     setSelectedRestaurant(restaurant);
+    const restaurantRefPath = `restaurants/${restaurant.id}`;
+
+    const productsQuery = query(
+      collection(db, 'products'),
+      where('restaurantId', '==', restaurantRefPath)
+    );
+    const productsSnapshot = await getDocs(productsQuery);
+    const data: Product[] = productsSnapshot.docs.map((doc) => {
+      const productsData = doc.data();
+      return {
+        id: doc.id,
+        name: productsData.name,
+        price: productsData.price,
+        restaurantId: productsData.restaurantId,
+      };
+    });
+    setProducts(data);
   };
 
   const handleClose = () => {
-    setSelectedRestaurant(null);
+    setSelectedRestaurant(undefined);
+    setProducts([]);
   };
 
   return (
@@ -37,8 +63,8 @@ export const RestaurantList = () => {
         <Input placeholder="Search" className="w-1/3" />
       </div>
       <div className="flex-1 overflow-auto p-4">
-        {restaurants.map((restaurant, index) => (
-          <Card key={index} className="mb-4">
+        {restaurants.map((restaurant) => (
+          <Card key={restaurant.id} className="mb-4">
             <CardContent className="p-4 flex justify-between items-center">
               <div>
                 <h2 className="font-semibold">{restaurant.name}</h2>
@@ -65,14 +91,30 @@ export const RestaurantList = () => {
               {selectedRestaurant.name} - Food List
             </h2>
             <ul className="mb-4">
-              {selectedRestaurant.foodList.map((food, index) => (
+              {products.map((product) => (
                 <li
-                  key={index}
-                  className="flex justify-between items-center text-gray-700 mb-2 bg-gray-100"
+                  key={product.id}
+                  className="flex items-center text-gray-700 mb-4 bg-gray-100 p-4 rounded-lg shadow"
+                  onClick={() => navigate(`/product/${product.id}`)}
                 >
-                  <span className="flex-1">{food.name}</span>
-                  <span className="ml-4">${food.price}</span>
-                  <Button variant="default" className="ml-4 rounded-lg">
+                  <img
+                    src="src/assets/images/goodFood.png"
+                    alt={product.name}
+                    className="w-16 h-16 rounded-lg object-cover mr-4"
+                  />
+                  <div className="flex-1">
+                    <span className="block font-semibold">{product.name}</span>
+                    <span className="block text-gray-500">
+                      ${product.price}
+                    </span>
+                  </div>
+                  <Button
+                    variant="default"
+                    className="ml-4 rounded-lg"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                    }}
+                  >
                     +
                   </Button>
                 </li>
