@@ -69,6 +69,7 @@ export const RestaurantList = () => {
 
   return (
     <div className="flex flex-col min-h-screen mt-5">
+      {order?.totalAmount}
       <div className="p-4 flex justify-center">
         <Input placeholder="Search" className="w-1/3" />
       </div>
