@@ -3,4 +3,5 @@ export interface Product {
   name: string;
   price: number; // Optional image URL
   restaurantId: string;
+  imageUrl?: string;
 }

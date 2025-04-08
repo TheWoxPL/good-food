@@ -108,7 +108,7 @@ export const RestaurantList = () => {
                   onClick={() => navigate(`/product/${product.id}`)}
                 >
                   <img
-                    src="src/assets/images/goodFood.png"
+                    src={product.imageUrl}
                     alt={product.name}
                     className="w-16 h-16 rounded-lg object-cover mr-4"
                   />
