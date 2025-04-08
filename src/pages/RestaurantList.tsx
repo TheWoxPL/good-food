@@ -8,6 +8,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { Product, Restaurant } from '@/types';
 import { useNavigate } from 'react-router';
 import { UserOrderContext } from '@/context/OrderContext';
+import HamburgerMenuSVG from '@/assets/svgs/hamburger-menu.svg';
 
 export const RestaurantList = () => {
   const { order, addProduct } = UserOrderContext();
@@ -17,6 +18,7 @@ export const RestaurantList = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    console.log(HamburgerMenuSVG);
     const fetchRestaurants = async () => {
       const querySnapshot = await getDocs(collection(db, 'restaurants'));
       const data: Restaurant[] = querySnapshot.docs.map((doc) => {
@@ -69,8 +71,13 @@ export const RestaurantList = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="p-2 flex justify-start fixed top-0 bg-gradient-to-r from-yellow-400 to-yellow-600 left-0 w-full">
-        <Input placeholder="Search" className="w-2/3 bg-white" />
+      <div className="flex justify-between items-center fixed top-0 bg-gradient-to-r from-yellow-400 to-yellow-600 left-0 w-full">
+        <Input placeholder="Search" className="w-2/3 bg-white m-2" />
+        <img
+          src={HamburgerMenuSVG}
+          alt="Hamburger menu"
+          className="w-11 h-11 mr-2 text-white"
+        />
       </div>
       <div className="flex-1 overflow-auto p-4 mt-10 mb-8">
         {restaurants.map((restaurant) => (
