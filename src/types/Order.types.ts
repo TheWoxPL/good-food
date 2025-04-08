@@ -1,13 +1,10 @@
+import { Item } from './Item.types';
+
 export interface Order {
   id?: string;
   userId: string;
 
-  items: {
-    productId: string;
-    name: string;
-    price: number;
-    quantity: number;
-  }[];
+  items: Item[];
 
   totalAmount: number;
   status: 'pending' | 'done';

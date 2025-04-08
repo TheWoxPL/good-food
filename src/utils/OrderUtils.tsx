@@ -48,7 +48,6 @@ export const addEmptyOrderLocally = (
   setOrder: (order: Order) => void
 ) => {
   const emptyOrder: Order = {
-    // id: '',
     userId: userId,
     items: [],
     totalAmount: 0,
@@ -132,4 +131,17 @@ export const calculateTotalAmount = (
     total += item.price * item.quantity;
   });
   return total;
+};
+
+export const removeItemFromOrder = (
+  itemId: string,
+  order: Order,
+  setOrder: (order: Order) => void
+) => {
+  const updatedItems = order.items.filter((item) => item.productId !== itemId);
+  setOrder({
+    ...order,
+    items: updatedItems,
+    totalAmount: calculateTotalAmount(updatedItems),
+  });
 };

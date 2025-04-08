@@ -11,6 +11,7 @@ import { Order, Product } from '@/types';
 import {
   addProductToOrder,
   fetchOrder,
+  removeItemFromOrder,
   updateOrCreateOrder,
 } from '@/utils/OrderUtils';
 
@@ -19,6 +20,7 @@ interface OrderContextType {
   loadingOrder: boolean;
   order: Order | null | undefined;
   addProduct: (product: Product) => void;
+  removeItem: (itemId: string) => void;
 }
 
 const OrderContext = createContext<OrderContextType>({
@@ -26,6 +28,7 @@ const OrderContext = createContext<OrderContextType>({
   loadingOrder: true,
   order: undefined,
   addProduct: () => {},
+  removeItem: () => {},
 });
 
 interface UserOrderContextProviderProps {
@@ -46,7 +49,8 @@ export const UserOrderContextProvider = ({
   }, [loading, user]);
 
   useEffect(() => {
-    if (loadingOrder === false && order?.items && order.items.length > 0) {
+    // if (loadingOrder === false && order?.items && order.items.length > 0) {
+    if (loadingOrder === false && order) {
       updateOrCreateOrder(order, setOrder);
     }
   }, [order, loadingOrder]);
@@ -55,12 +59,18 @@ export const UserOrderContextProvider = ({
     addProductToOrder(product, order!, setOrder);
   };
 
+  const removeItem = (itemId: string) => {
+    removeItemFromOrder(itemId, order!, setOrder);
+  };
+
   if (!loadingOrder && order) {
     <div></div>;
   }
 
   return (
-    <OrderContext.Provider value={{ user, loadingOrder, order, addProduct }}>
+    <OrderContext.Provider
+      value={{ user, loadingOrder, order, addProduct, removeItem }}
+    >
       {children}
     </OrderContext.Provider>
   );

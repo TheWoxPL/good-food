@@ -13,6 +13,7 @@ import { registerSW } from 'virtual:pwa-register';
 import '../index.css';
 import { AuthContextProvider, UserOrderContextProvider } from './context';
 import { ProtectedRoute } from './components/protected-route';
+import { YourCartPage } from './pages/YourCartPage';
 
 const updateSW = registerSW({
   onNeedRefresh() {
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')!).render(
             <Route element={<ProtectedRoute />}>
               <Route path="/restaurants" element={<RestaurantList />} />
               <Route path="/product/:productId" element={<ProductPage />} />
+              <Route path="/your-cart" element={<YourCartPage />} />
             </Route>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />

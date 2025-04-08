@@ -69,7 +69,6 @@ export const RestaurantList = () => {
 
   return (
     <div className="flex flex-col min-h-screen mt-5">
-      {order?.totalAmount}
       <div className="p-4 flex justify-center">
         <Input placeholder="Search" className="w-1/3" />
       </div>
@@ -142,7 +141,7 @@ export const RestaurantList = () => {
         <Button className="w-32" onClick={() => console.log(order)}>
           Make an order
         </Button>
-        <div className="relative ml-4">
+        <div className="relative ml-4" onClick={() => navigate('/your-cart')}>
           <ShoppingCart size={24} />
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
             {order?.items.length || 0}
