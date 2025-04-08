@@ -77,7 +77,11 @@ export const addProductToOrder = (
   if (existingItemIndex !== -1) {
     const updatedItems = [...order.items];
     updatedItems[existingItemIndex].quantity += 1;
-    setOrder({ ...order, items: updatedItems });
+    setOrder({
+      ...order,
+      items: updatedItems,
+      totalAmount: calculateTotalAmount(updatedItems),
+    });
   } else {
     const newItem = {
       productId: product.id,
@@ -85,7 +89,12 @@ export const addProductToOrder = (
       price: product.price,
       quantity: 1,
     };
-    setOrder({ ...order, items: [...order.items, newItem] });
+    const newItems = [...order.items, newItem];
+    setOrder({
+      ...order,
+      items: newItems,
+      totalAmount: calculateTotalAmount(newItems),
+    });
   }
 };
 
@@ -112,4 +121,15 @@ export const updateOrCreateOrder = async (
     console.error('Error updating or creating order:', error);
     throw error;
   }
+};
+
+export const calculateTotalAmount = (
+  items: { name: string; price: number; productId: string; quantity: number }[]
+): number => {
+  console.log(items);
+  let total = 0;
+  items.forEach((item) => {
+    total += item.price * item.quantity;
+  });
+  return total;
 };
