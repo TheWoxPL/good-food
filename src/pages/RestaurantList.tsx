@@ -1,4 +1,3 @@
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShoppingCart } from 'lucide-react';
@@ -8,7 +7,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { Product, Restaurant } from '@/types';
 import { useNavigate } from 'react-router';
 import { UserOrderContext } from '@/context/OrderContext';
-import HamburgerMenuSVG from '@/assets/svgs/hamburger-menu.svg';
+import { Navbar } from '@/components';
 
 export const RestaurantList = () => {
   const { order, addProduct } = UserOrderContext();
@@ -18,7 +17,6 @@ export const RestaurantList = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    console.log(HamburgerMenuSVG);
     const fetchRestaurants = async () => {
       const querySnapshot = await getDocs(collection(db, 'restaurants'));
       const data: Restaurant[] = querySnapshot.docs.map((doc) => {
@@ -71,14 +69,7 @@ export const RestaurantList = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="flex justify-between items-center fixed top-0 bg-gradient-to-r from-yellow-400 to-yellow-600 left-0 w-full">
-        <Input placeholder="Search" className="w-2/3 bg-white m-2" />
-        <img
-          src={HamburgerMenuSVG}
-          alt="Hamburger menu"
-          className="w-11 h-11 mr-2 text-white"
-        />
-      </div>
+      <Navbar />
       <div className="flex-1 overflow-auto p-4 mt-10 mb-8">
         {restaurants.map((restaurant) => (
           <Card key={restaurant.id} className="mb-4">
@@ -145,12 +136,6 @@ export const RestaurantList = () => {
       )}
 
       <div className="fixed bottom-0 bg-gradient-to-r from-yellow-400 to-yellow-600 left-0 w-full p-2 bg-neutral-700 flex justify-end items-center">
-        <Button
-          className="w-32 bg-white text-yellow-800 border-yellow-900 border-2 mr-auto shadow-lg"
-          onClick={() => navigate('/your-orders')}
-        >
-          Your orders
-        </Button>
         <Button
           className="w-32 bg-blue-500 shadow-lg"
           onClick={() => console.log(order)}
