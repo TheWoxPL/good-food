@@ -11,6 +11,7 @@ import { Order, Product } from '@/types';
 import {
   addProductToOrder,
   fetchOrder,
+  getAllOrdersForUser,
   removeItemFromOrder,
   updateOrCreateOrder,
 } from '@/utils/OrderUtils';
@@ -21,6 +22,7 @@ interface OrderContextType {
   order: Order | null | undefined;
   addProduct: (product: Product) => void;
   removeItem: (itemId: string) => void;
+  getAllOrders: () => Promise<Order[]>;
 }
 
 const OrderContext = createContext<OrderContextType>({
@@ -29,6 +31,7 @@ const OrderContext = createContext<OrderContextType>({
   order: undefined,
   addProduct: () => {},
   removeItem: () => {},
+  getAllOrders: async () => Promise.resolve([]),
 });
 
 interface UserOrderContextProviderProps {
@@ -63,13 +66,24 @@ export const UserOrderContextProvider = ({
     removeItemFromOrder(itemId, order!, setOrder);
   };
 
+  const getAllOrders = (): Promise<Order[]> => {
+    return getAllOrdersForUser(user!.uid);
+  };
+
   if (!loadingOrder && order) {
     <div></div>;
   }
 
   return (
     <OrderContext.Provider
-      value={{ user, loadingOrder, order, addProduct, removeItem }}
+      value={{
+        user,
+        loadingOrder,
+        order,
+        addProduct,
+        removeItem,
+        getAllOrders,
+      }}
     >
       {children}
     </OrderContext.Provider>

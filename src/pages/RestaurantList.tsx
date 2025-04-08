@@ -68,11 +68,11 @@ export const RestaurantList = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen mt-5">
-      <div className="p-4 flex justify-center">
-        <Input placeholder="Search" className="w-1/3" />
+    <div className="flex flex-col min-h-screen">
+      <div className="p-2 flex justify-start fixed top-0 bg-gradient-to-r from-yellow-400 to-yellow-600 left-0 w-full">
+        <Input placeholder="Search" className="w-2/3 bg-white" />
       </div>
-      <div className="flex-1 overflow-auto p-4">
+      <div className="flex-1 overflow-auto p-4 mt-10 mb-8">
         {restaurants.map((restaurant) => (
           <Card key={restaurant.id} className="mb-4">
             <CardContent className="p-4 flex justify-between items-center">
@@ -84,7 +84,7 @@ export const RestaurantList = () => {
               </div>
               <Button
                 variant="default"
-                className="ml-5"
+                className="ml-5 shadow-lg bg-blue-500 text-white"
                 onClick={() => handleSelect(restaurant)}
               >
                 Select
@@ -95,7 +95,7 @@ export const RestaurantList = () => {
       </div>
 
       {selectedRestaurant && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 z-2 bg-white bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg w-full max-w-lg">
             <h2 className="text-xl font-semibold mb-4">
               {selectedRestaurant.name} - Food List
@@ -137,14 +137,26 @@ export const RestaurantList = () => {
         </div>
       )}
 
-      <div className="p-4 bg-neutral-700 rounded-lg flex justify-end items-center">
-        <Button className="w-32" onClick={() => console.log(order)}>
+      <div className="fixed bottom-0 bg-gradient-to-r from-yellow-400 to-yellow-600 left-0 w-full p-2 bg-neutral-700 flex justify-end items-center">
+        <Button
+          className="w-32 bg-white text-yellow-800 border-yellow-900 border-2 mr-auto shadow-lg"
+          onClick={() => navigate('/your-orders')}
+        >
+          Your orders
+        </Button>
+        <Button
+          className="w-32 bg-blue-500 shadow-lg"
+          onClick={() => console.log(order)}
+        >
           Make an order
         </Button>
-        <div className="relative ml-4" onClick={() => navigate('/your-cart')}>
-          <ShoppingCart size={24} />
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-            {order?.items.length || 0}
+        <div
+          className="relative ml-4 mr-3"
+          onClick={() => navigate('/your-cart')}
+        >
+          <ShoppingCart size={24} className="text-yellow-900" />
+          <span className="absolute -top-2 -right-2 shadow-lg bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span>{order?.items.length || 0}</span>
           </span>
         </div>
       </div>

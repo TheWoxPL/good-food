@@ -145,3 +145,14 @@ export const removeItemFromOrder = (
     totalAmount: calculateTotalAmount(updatedItems),
   });
 };
+
+export const getAllOrdersForUser = async (userId: string): Promise<Order[]> => {
+  const ordersRef = collection(db, 'orders');
+  const q = query(ordersRef, where('userId', '==', userId));
+  const querySnapshot = await getDocs(q);
+  const orders: Order[] = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as Order[];
+  return orders;
+};
