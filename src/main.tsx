@@ -11,7 +11,7 @@ import {
 import { registerSW } from 'virtual:pwa-register';
 
 import '../index.css';
-import { AuthContextProvider } from './context';
+import { AuthContextProvider, UserOrderContextProvider } from './context';
 import { ProtectedRoute } from './components/protected-route';
 
 const updateSW = registerSW({
@@ -28,17 +28,19 @@ const updateSW = registerSW({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<ProtectedRoute />}>
-            <Route path="/restaurants" element={<RestaurantList />} />
-            <Route path="/product/:productId" element={<ProductPage />} />
-          </Route>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
-      </BrowserRouter>
+      <UserOrderContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/restaurants" element={<RestaurantList />} />
+              <Route path="/product/:productId" element={<ProductPage />} />
+            </Route>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </BrowserRouter>
+      </UserOrderContextProvider>
     </AuthContextProvider>
   </StrictMode>
 );

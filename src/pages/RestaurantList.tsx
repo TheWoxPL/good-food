@@ -7,12 +7,14 @@ import { db } from '@/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { Product, Restaurant } from '@/types';
 import { useNavigate } from 'react-router';
+import { UserOrderContext } from '@/context/OrderContext';
 
 export const RestaurantList = () => {
+  const { order, addProduct } = UserOrderContext();
+  const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant>();
   const [products, setProducts] = useState<Product[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -55,6 +57,14 @@ export const RestaurantList = () => {
   const handleClose = () => {
     setSelectedRestaurant(undefined);
     setProducts([]);
+  };
+
+  const handleAddProduct = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    product: Product
+  ) => {
+    event.stopPropagation();
+    addProduct(product);
   };
 
   return (
@@ -112,7 +122,7 @@ export const RestaurantList = () => {
                     variant="default"
                     className="ml-4 rounded-lg"
                     onClick={(event) => {
-                      event.stopPropagation();
+                      handleAddProduct(event, product);
                     }}
                   >
                     +
@@ -128,11 +138,13 @@ export const RestaurantList = () => {
       )}
 
       <div className="p-4 bg-neutral-700 rounded-lg flex justify-end items-center">
-        <Button className="w-32">Make an order</Button>
+        <Button className="w-32" onClick={() => console.log(order)}>
+          Make an order
+        </Button>
         <div className="relative ml-4">
           <ShoppingCart size={24} />
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-            1
+            {order?.items.length || 0}
           </span>
         </div>
       </div>
