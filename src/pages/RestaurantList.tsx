@@ -8,6 +8,7 @@ import { Product, Restaurant } from '@/types';
 import { useNavigate } from 'react-router';
 import { UserOrderContext } from '@/context/OrderContext';
 import { Navbar } from '@/components';
+import { Spinner } from '@/components/Spinner';
 
 export const RestaurantList = () => {
   const { order, addProduct } = UserOrderContext();
@@ -71,6 +72,7 @@ export const RestaurantList = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-1 overflow-auto p-4 mt-10 mb-8">
+        {restaurants.length === 0 && <Spinner />}
         {restaurants.map((restaurant) => (
           <Card key={restaurant.id} className="mb-4">
             <CardContent className="p-4 flex justify-between items-center">

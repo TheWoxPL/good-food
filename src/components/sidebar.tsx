@@ -85,7 +85,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isVisible, onClose }) => {
 
               <span
                 className="block px-4 py-2 rounded-lg hover:bg-gray-600 cursor-pointer flex items-center space-x-2"
-                onClick={() => navigate('/about-us')}
+                onClick={() => navigate('/about')}
               >
                 <User className="w-5 h-5" />
                 <span>About Us</span>

@@ -1,5 +1,6 @@
 import { Outlet, Navigate } from 'react-router';
 import { UserAuth } from '@/context/AuthContext';
+import { Spinner } from './Spinner';
 
 export const ProtectedRoute = () => {
   const { user, loading } = UserAuth();
@@ -10,7 +11,7 @@ export const ProtectedRoute = () => {
 
   // TODO: Add loading short animation or put empty div
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return <Outlet />;

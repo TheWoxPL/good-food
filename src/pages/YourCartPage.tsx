@@ -6,7 +6,7 @@ export const YourCartPage = () => {
 
   return (
     <div>
-      <div className="p-4 bg-gray-100 min-h-screen mb-10">
+      <div className="p-4 bg-gray-100 min-h-screen pb-14">
         {order?.items.map((item: Item) => (
           <div
             key={item.productId}
@@ -53,7 +53,7 @@ export const YourCartPage = () => {
         <div className="fixed bottom-0 left-0 w-full flex justify-between items-center bg-gradient-to-r from-yellow-400 to-yellow-600 p-4 rounded-t-lg shadow-sm">
           <span className="text-gray-700 font-medium">Total Amount:</span>
           <span className="text-xl font-bold text-gray-900">
-            ${order?.totalAmount || 0}
+            ${order?.totalAmount.toFixed(2) || 0}
           </span>
         </div>
       </div>
