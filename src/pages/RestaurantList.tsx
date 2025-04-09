@@ -50,6 +50,7 @@ export const RestaurantList = () => {
         name: productsData.name,
         price: productsData.price,
         restaurantId: productsData.restaurantId,
+        imageUrl: productsData.imageUrl,
       };
     });
     setProducts(data);
