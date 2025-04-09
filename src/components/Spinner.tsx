@@ -28,11 +28,13 @@ const icons = [
 ];
 
 export const Spinner = () => {
-  const [currentIconIndex, setCurrentIconIndex] = useState(0);
+  const [currentIconIndex, setCurrentIconIndex] = useState(() =>
+    Math.floor(Math.random() * icons.length)
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIconIndex((prevIndex) => (prevIndex + 1) % icons.length);
+      setCurrentIconIndex(() => Math.floor(Math.random() * icons.length));
     }, 1000);
 
     return () => clearInterval(interval);
