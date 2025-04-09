@@ -1,8 +1,9 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
+import { UserAuth } from '@/context';
+import { useNavigate } from 'react-router';
 
 import {
   Form,
@@ -25,11 +26,7 @@ import { Link } from 'react-router';
 // Define validation schema using Zod
 const formSchema = z
   .object({
-    name: z
-      .string()
-      .min(2, { message: 'Name must be at least 2 characters long' }),
     email: z.string().email({ message: 'Invalid email address' }),
-    phone: z.string().min(10, { message: 'Phone number must be valid' }),
     password: z
       .string()
       .min(6, { message: 'Password must be at least 6 characters long' })
@@ -42,31 +39,44 @@ const formSchema = z
   });
 
 export default function RegisterPage() {
+  const { signUpWithEmailAndPassword } = UserAuth();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
       email: '',
-      phone: '',
       password: '',
       confirmPassword: '',
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit() {
     try {
-      // Assuming an async registration function
-      console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
+      await signUpWithEmailAndPassword(
+        form.getValues('email'),
+        form.getValues('password')
       );
-    } catch (error) {
-      console.error('Form submission error', error);
-      toast.error('Failed to submit the form. Please try again.');
+      navigate('/restaurants');
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.code === 'auth/email-already-in-use') {
+        console.error('Form submission error: Email already in use');
+        form.setError('email', {
+          type: 'manual',
+          message: 'This email is already in use.',
+        });
+      } else {
+        console.error('Form submission error', error);
+        alert('An unexpected error occurred. Please try again.');
+      }
     }
   }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    form.handleSubmit(onSubmit)();
+  };
 
   return (
     <div className="flex h-[100vh] w-full items-center justify-center px-4">
@@ -79,23 +89,8 @@ export default function RegisterPage() {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={(e) => handleSubmit(e)} className="space-y-8">
               <div className="grid gap-4">
-                {/* Name Field */}
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem className="grid gap-2">
-                      <FormLabel htmlFor="name">Full Name</FormLabel>
-                      <FormControl>
-                        <Input id="name" placeholder="John Doe" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
                 {/* Email Field */}
                 <FormField
                   control={form.control}
@@ -160,9 +155,35 @@ export default function RegisterPage() {
                     </FormItem>
                   )}
                 />
-
-                <Button type="submit" className="w-full">
-                  Register
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={form.formState.isSubmitting}
+                >
+                  {form.formState.isSubmitting ? (
+                    <svg
+                      className="animate-spin h-5 w-5 text-white mx-auto"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      ></path>
+                    </svg>
+                  ) : (
+                    'Register'
+                  )}
                 </Button>
               </div>
             </form>
