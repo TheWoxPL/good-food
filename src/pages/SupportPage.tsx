@@ -104,7 +104,9 @@ export const SupportPage = () => {
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <Label htmlFor="platform">Wybierz platformę</Label>
+          <Label htmlFor="platform" className="mb-1">
+            Wybierz platformę
+          </Label>
           <div className="w-full">
             <Select value={platform} onValueChange={setPlatform} required>
               <SelectTrigger id="platform" className="w-full">
@@ -124,7 +126,9 @@ export const SupportPage = () => {
         </div>
 
         <div>
-          <Label htmlFor="category">Gdzie wystąpił problem</Label>
+          <Label htmlFor="category" className="mb-1">
+            Gdzie wystąpił problem
+          </Label>
           <div className="w-full">
             <Select value={category} onValueChange={setCategory} required>
               <SelectTrigger id="category" className="w-full">
@@ -148,7 +152,9 @@ export const SupportPage = () => {
         </div>
 
         <div>
-          <Label htmlFor="subject">Temat</Label>
+          <Label htmlFor="subject" className="mb-1">
+            Temat
+          </Label>
           <Input
             id="subject"
             value={subject}
@@ -160,7 +166,9 @@ export const SupportPage = () => {
         </div>
 
         <div>
-          <Label htmlFor="description">Opis problemu</Label>
+          <Label htmlFor="description" className="mb-1">
+            Opis problemu
+          </Label>
           <Textarea
             id="description"
             value={description}
