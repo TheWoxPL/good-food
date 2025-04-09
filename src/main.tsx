@@ -16,6 +16,7 @@ import { AuthContextProvider, UserOrderContextProvider } from './context';
 import { ProtectedRoute } from './components/protected-route';
 import { YourCartPage } from './pages/YourCartPage';
 import { SupportPage } from './pages/SupportPage';
+import RegisterPage from './pages/RegisterPage';
 
 const updateSW = registerSW({
   onNeedRefresh() {
@@ -44,6 +45,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </BrowserRouter>
       </UserOrderContextProvider>
