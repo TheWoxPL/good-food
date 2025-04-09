@@ -15,6 +15,7 @@ import '../index.css';
 import { AuthContextProvider, UserOrderContextProvider } from './context';
 import { ProtectedRoute } from './components/protected-route';
 import { YourCartPage } from './pages/YourCartPage';
+import { SupportPage } from './pages/SupportPage';
 
 const updateSW = registerSW({
   onNeedRefresh() {
@@ -38,6 +39,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/product/:productId" element={<ProductPage />} />
               <Route path="/your-cart" element={<YourCartPage />} />
               <Route path="/your-orders" element={<YourOrdersPage />} />
+              <Route path="/support-contact" element={<SupportPage />} />
             </Route>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
