@@ -7,3 +7,4 @@ export * from './YourCartPage';
 export * from './YourOrdersPage';
 export * from './SupportPage';
 export * from './RegisterPage';
+export * from './ProductListPage';
