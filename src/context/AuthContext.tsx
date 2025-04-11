@@ -11,6 +11,7 @@ import {
   signInWithGoogleFirebase,
   signOutFirebase,
   signUpWithEmailAndPasswordFirebase,
+  signInWithEmailAndPasswordFirebase,
 } from '@/firebase';
 
 interface AuthContextType {
@@ -22,6 +23,10 @@ interface AuthContextType {
     email: string,
     password: string
   ) => Promise<void>;
+  signInWithEmailAndPassword: (
+    email: string,
+    password: string
+  ) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -30,6 +35,7 @@ const AuthContext = createContext<AuthContextType>({
   signInWithGoogle: async () => {},
   signOut: async () => {},
   signUpWithEmailAndPassword: async () => {},
+  signInWithEmailAndPassword: async () => {},
 });
 
 interface AuthContextProviderProps {
@@ -64,6 +70,13 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     await signUpWithEmailAndPasswordFirebase(email, password);
   };
 
+  const signInWithEmailAndPassword = async (
+    email: string,
+    password: string
+  ) => {
+    await signInWithEmailAndPasswordFirebase(email, password);
+  };
+
   const signOut = async () => {
     await signOutFirebase();
     setUser(null);
@@ -77,6 +90,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         signInWithGoogle,
         signOut,
         signUpWithEmailAndPassword,
+        signInWithEmailAndPassword,
       }}
     >
       {children}
