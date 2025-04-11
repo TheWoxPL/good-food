@@ -3,11 +3,11 @@ import { Input } from './ui/input';
 import HamburgerMenuSVG from '@/assets/svgs/hamburger-menu.svg';
 import { Sidebar } from './sidebar';
 
-interface NavbarProps {
+export const Navbar = ({
+  onSearchChange,
+}: {
   onSearchChange?: (value: string) => void;
-}
-
-export const Navbar = ({ onSearchChange }: NavbarProps) => {
+}) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   return (
