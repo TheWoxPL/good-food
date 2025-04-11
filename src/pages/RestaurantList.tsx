@@ -16,6 +16,7 @@ export const RestaurantList = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant>();
   const [products, setProducts] = useState<Product[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -71,28 +72,41 @@ export const RestaurantList = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      <Navbar onSearchChange={setSearchTerm} />
       <div className="flex-1 overflow-auto p-4 mt-10 mb-8">
         {restaurants.length === 0 && <Spinner />}
-        {restaurants.map((restaurant) => (
-          <Card key={restaurant.id} className="mb-4">
-            <CardContent className="p-4 flex justify-between items-center">
-              <div>
-                <h2 className="font-semibold">{restaurant.name}</h2>
-                <p className="text-sm text-gray-600 mb-2">
-                  {restaurant.description}
-                </p>
-              </div>
-              <Button
-                variant="default"
-                className="ml-5 shadow-lg bg-blue-500 text-white"
-                onClick={() => handleSelect(restaurant)}
-              >
-                Select
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+        {restaurants.filter((restaurant) =>
+          restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
+        ).length === 0 &&
+          searchTerm !== '' &&
+          restaurants.length > 0 && (
+            <p className="text-center text-gray-500 text-sm mt-10">
+              Brak wyników
+            </p>
+          )}
+        {restaurants
+          .filter((restaurant) =>
+            restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((restaurant) => (
+            <Card key={restaurant.id} className="mb-4">
+              <CardContent className="p-4 flex justify-between items-center">
+                <div>
+                  <h2 className="font-semibold">{restaurant.name}</h2>
+                  <p className="text-sm text-gray-600 mb-2">
+                    {restaurant.description}
+                  </p>
+                </div>
+                <Button
+                  variant="default"
+                  className="ml-5 shadow-lg bg-blue-500 text-white"
+                  onClick={() => handleSelect(restaurant)}
+                >
+                  Select
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
       </div>
 
       {selectedRestaurant && (
@@ -141,7 +155,7 @@ export const RestaurantList = () => {
       <div className="fixed bottom-0 bg-gradient-to-r from-yellow-400 to-yellow-600 left-0 w-full p-2 bg-neutral-700 flex justify-end items-center">
         <Button
           className="w-32 bg-blue-500 shadow-lg"
-          onClick={() => console.log(order)}
+          onClick={() => navigate('/your-cart')}
         >
           Make an order
         </Button>
