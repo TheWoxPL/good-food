@@ -1,9 +1,12 @@
 import { UserOrderContext } from '@/context';
 import { Item } from '@/types';
 import { Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router';
 
 export const YourCartPage = () => {
   const { order, removeItem } = UserOrderContext();
+  const navigate = useNavigate();
 
   return (
     <div className="bg-gray-100 min-h-screen pb-20 px-2 sm:px-4">
@@ -11,7 +14,7 @@ export const YourCartPage = () => {
         {order?.items.map((item: Item) => (
           <div
             key={item.productId}
-            className="bg-white shadow-lg rounded-lg flex flex-col sm:flex-row bg-white overflow-hidden bg-white mb-4 p-4 gap-4"
+            className="bg-white shadow-lg rounded-lg flex flex-col sm:flex-row items-center bg-white overflow-hidden mb-4 p-4 gap-4"
           >
             <div className="w-full sm:w-[120px] h-[120px] flex-shrink-0">
               <img
@@ -57,6 +60,12 @@ export const YourCartPage = () => {
           <span className="text-xl font-bold text-gray-900">
             ${order?.totalAmount.toFixed(2) || 0}
           </span>
+          <Button
+            className="ml-4 bg-violet-500 text-white shadow-lg"
+            onClick={() => navigate('/payment')}
+          >
+            Sfinalizuj zamówienie
+          </Button>
         </div>
       </div>
     </div>

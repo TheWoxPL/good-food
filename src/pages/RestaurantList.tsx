@@ -51,6 +51,7 @@ export const RestaurantList = () => {
         name: productsData.name,
         price: productsData.price,
         restaurantId: productsData.restaurantId,
+        imageUrl: productsData.imageUrl,
       };
     });
     setProducts(data);
@@ -122,7 +123,7 @@ export const RestaurantList = () => {
                   onClick={() => navigate(`/product/${product.id}`)}
                 >
                   <img
-                    src="src/assets/images/goodFood.png"
+                    src={product.imageUrl}
                     alt={product.name}
                     className="w-16 h-16 rounded-lg object-cover mr-4"
                   />
@@ -154,7 +155,7 @@ export const RestaurantList = () => {
       <div className="fixed bottom-0 bg-gradient-to-r from-yellow-400 to-yellow-600 left-0 w-full p-2 bg-neutral-700 flex justify-end items-center">
         <Button
           className="w-32 bg-blue-500 shadow-lg"
-          onClick={() => console.log(order)}
+          onClick={() => navigate('/your-cart')}
         >
           Make an order
         </Button>
