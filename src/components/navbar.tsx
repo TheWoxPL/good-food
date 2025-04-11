@@ -3,7 +3,11 @@ import { Input } from './ui/input';
 import HamburgerMenuSVG from '@/assets/svgs/hamburger-menu.svg';
 import { Sidebar } from './sidebar';
 
-export const Navbar = () => {
+interface NavbarProps {
+  onSearchChange?: (value: string) => void;
+}
+
+export const Navbar = ({ onSearchChange }: NavbarProps) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   return (
@@ -16,10 +20,14 @@ export const Navbar = () => {
         <img
           src={HamburgerMenuSVG}
           alt="Hamburger menu"
-          className="w-11 h-11 ml-2 text-white"
+          className="w-11 h-11 ml-2 text-white cursor-pointer"
           onClick={() => setIsSidebarVisible(true)}
         />
-        <Input placeholder="Search" className="w-100 bg-white m-2" />
+        <Input
+          placeholder="Search"
+          className="w-100 bg-white m-2"
+          onChange={(e) => onSearchChange?.(e.target.value)}
+        />
       </div>
     </div>
   );

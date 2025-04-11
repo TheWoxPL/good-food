@@ -1,18 +1,19 @@
 import { UserOrderContext } from '@/context';
 import { Item } from '@/types';
+import { Trash2 } from 'lucide-react';
 
 export const YourCartPage = () => {
   const { order, removeItem } = UserOrderContext();
 
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen pb-20 px-2 sm:px-4">
       <div className="p-4 bg-gray-100 min-h-screen pb-14">
         {order?.items.map((item: Item) => (
           <div
             key={item.productId}
-            className="shadow-lg rounded-lg flex items-center bg-white mb-4"
+            className="bg-white shadow-lg rounded-lg flex flex-col sm:flex-row bg-white overflow-hidden bg-white mb-4 p-4 gap-4"
           >
-            <div className="w-30 h-20 mr-4 min-h-[120px]">
+            <div className="w-full sm:w-[120px] h-[120px] flex-shrink-0">
               <img
                 src={
                   'https://www.kfc-suisse.ch/fileadmin/_processed_/1/f/csm_webseite_desktop-classic-zinger_ca8e21bb94.jpg'
@@ -21,7 +22,7 @@ export const YourCartPage = () => {
                 alt={item.name}
               />
             </div>
-            <div className="flex-1 ">
+            <div className="flex-1 w-full sm:w-auto">
               <h2 className="text-lg font-semibold text-gray-900">
                 {item.name}
               </h2>
@@ -32,14 +33,15 @@ export const YourCartPage = () => {
                 Quantity: <span className="font-medium">{item.quantity}</span>
               </p>
             </div>
-            <div className="text-right pr-4">
+            <div className="text-right w-full sm:w-auto">
               <div className="mb-2">
-                <button
-                  className="text-red-500 font-bold bg-red-100 rounded-[20px] px-3 py-1 text-[14px] transition-transform transform hover:scale-105 active:scale-95"
-                  onClick={() => removeItem(item.productId)}
-                >
-                  remove
-                </button>
+                <div className="relative group inline-block">
+                  <Trash2
+                    className="text-red-500 cursor-pointer transition-colors duration-200 group-hover:text-red-700"
+                    size={22}
+                    onClick={() => removeItem(item.productId)}
+                  />
+                </div>
               </div>
               <div>
                 <p className="text-sm font-semibold text-gray-800">Subtotal:</p>
