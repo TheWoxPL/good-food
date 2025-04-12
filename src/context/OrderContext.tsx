@@ -9,6 +9,7 @@ import { User } from 'firebase/auth';
 import { UserAuth } from './AuthContext';
 import { Order, Product } from '@/types';
 import {
+  addEmptyOrderLocally,
   addProductToOrder,
   fetchOrder,
   getAllOrdersForUser,
@@ -73,6 +74,7 @@ export const UserOrderContextProvider = ({
 
   const finalizePayment = (): void => {
     setOrder({ ...order!, status: 'done' });
+    addEmptyOrderLocally(user!.uid, setOrder);
   };
 
   if (!loadingOrder && order) {
