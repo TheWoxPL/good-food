@@ -20,9 +20,11 @@ import { Info } from 'lucide-react';
 
 import { useState } from 'react';
 import { UserAuth } from '@/context';
+import { useNavigate } from 'react-router';
 
 export const SupportPage = () => {
   const { user } = UserAuth();
+  const navigate = useNavigate();
 
   const [platform, setPlatform] = useState('');
   const [category, setCategory] = useState('');
@@ -64,6 +66,15 @@ export const SupportPage = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 font-sans text-gray-800 min-h-screen">
+      <div className="z-2 sticky pb-1">
+        <Button
+          variant="ghost"
+          className="bg-black hover:bg-opacity-100 text-white px-4 py-2 rounded-lg shadow"
+          onClick={() => navigate(-1)}
+        >
+          ← Back
+        </Button>
+      </div>
       <h1 className="text-4xl font-bold text-center mb-6">Contact Support</h1>
 
       <Alert className="mb-6">
@@ -113,7 +124,7 @@ export const SupportPage = () => {
                 <SelectItem value="android">Android</SelectItem>
                 <SelectItem value="ios">iOS</SelectItem>
                 <SelectItem value="web">Mac</SelectItem>
-                <SelectItem value="web">PC</SelectItem>
+                <SelectItem value="pc">PC</SelectItem>
               </SelectContent>
             </Select>
             {errors.platform && (
