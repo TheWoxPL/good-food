@@ -15,7 +15,6 @@ import {
   removeItemFromOrder,
   updateOrCreateOrder,
 } from '@/utils/OrderUtils';
-
 interface OrderContextType {
   user: User | null | undefined;
   loadingOrder: boolean;
@@ -23,6 +22,7 @@ interface OrderContextType {
   addProduct: (product: Product) => void;
   removeItem: (itemId: string) => void;
   getAllOrders: () => Promise<Order[]>;
+  finalizePayment: () => void;
 }
 
 const OrderContext = createContext<OrderContextType>({
@@ -32,6 +32,7 @@ const OrderContext = createContext<OrderContextType>({
   addProduct: () => {},
   removeItem: () => {},
   getAllOrders: async () => Promise.resolve([]),
+  finalizePayment: () => {},
 });
 
 interface UserOrderContextProviderProps {
@@ -70,6 +71,10 @@ export const UserOrderContextProvider = ({
     return getAllOrdersForUser(user!.uid);
   };
 
+  const finalizePayment = (): void => {
+    setOrder({ ...order!, status: 'done' });
+  };
+
   if (!loadingOrder && order) {
     <div></div>;
   }
@@ -83,6 +88,7 @@ export const UserOrderContextProvider = ({
         addProduct,
         removeItem,
         getAllOrders,
+        finalizePayment,
       }}
     >
       {children}

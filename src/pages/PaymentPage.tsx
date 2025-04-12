@@ -11,7 +11,7 @@ import { PaymentSuccess } from '@/components/payment-success';
 import { useNavigate } from 'react-router';
 
 export const PaymentPage = () => {
-  const { order } = UserOrderContext();
+  const { order, finalizePayment } = UserOrderContext();
   const navigate = useNavigate();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -54,6 +54,7 @@ export const PaymentPage = () => {
     audio.play().catch((error) => {
       console.error('Error playing sound:', error);
     });
+    finalizePayment();
     setIsPaymentSuccess(true);
   };
 

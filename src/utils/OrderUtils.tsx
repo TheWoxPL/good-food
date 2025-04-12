@@ -54,9 +54,10 @@ export const addEmptyOrderLocally = (
     status: 'pending',
     paymentMethod: null,
     deliveryAddress: {
-      street: '',
       city: '',
-      postalCode: '',
+      street: '',
+      house: '',
+      flat: '',
       coordinates: { lat: 0, lng: 0 },
     },
     createdAt: new Date(),

@@ -1,10 +1,13 @@
+import { Button } from '@/components/ui/button';
 import { UserOrderContext } from '@/context';
 import { Order } from '@/types';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export const YourOrdersPage = () => {
   const { getAllOrders } = UserOrderContext();
   const [allOrders, setAllOrders] = useState<Order[] | undefined>(undefined);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -24,7 +27,16 @@ export const YourOrdersPage = () => {
   }
 
   return (
-    <div className="font-sans p-6 bg-gradient-to-br from-yellow-700 via-yellow-500 to-yellow-600 min-h-screen">
+    <div className="font-sans p-6 bg-gradient-to-br from-yellow-700 via-yellow-500 to-yellow-600 min-h-screen pb-20">
+      <div className="fixed z-2">
+        <Button
+          variant="ghost"
+          className="bg-white hover:bg-opacity-100 text-gray-800 px-4 py-2 rounded-lg shadow"
+          onClick={() => navigate(-1)}
+        >
+          ← Back
+        </Button>
+      </div>
       <h1 className="text-center text-yellow-900 text-3xl font-extrabold mb-8">
         Your Orders
       </h1>

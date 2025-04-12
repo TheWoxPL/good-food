@@ -103,8 +103,17 @@ export const YourCartPage = () => {
             ${order?.totalAmount.toFixed(2) || 0}
           </span>
           <Button
-            className="ml-4 bg-violet-500 text-white shadow-lg"
-            onClick={() => navigate('/payment')}
+            className={`ml-4 shadow-lg ${
+              order!.totalAmount > 0
+                ? 'bg-violet-500 text-white'
+                : 'bg-gray-400 text-gray-700 cursor-not-allowed'
+            }`}
+            onClick={() => {
+              if (order!.totalAmount > 0) {
+                navigate('/payment');
+              }
+            }}
+            disabled={order!.totalAmount <= 0}
           >
             Finalize Order
           </Button>

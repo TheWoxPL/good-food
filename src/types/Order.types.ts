@@ -11,9 +11,10 @@ export interface Order {
   paymentMethod: 'card' | 'cash' | 'online' | null;
 
   deliveryAddress: {
-    street: string;
     city: string;
-    postalCode: string;
+    street: string;
+    house: string;
+    flat: string;
     coordinates?: { lat: number; lng: number };
   };
 
