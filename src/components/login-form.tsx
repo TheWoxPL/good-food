@@ -48,6 +48,11 @@ export function LoginForm({
       await signInWithEmailAndPassword(data.email, data.password);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      if (navigator.vibrate) {
+        console.log('i am vibrating');
+        navigator.vibrate(200);
+      }
+
       if (error.code === 'auth/wrong-password') {
         form.setError('password', {
           type: 'manual',
