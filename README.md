@@ -5,9 +5,6 @@
 
 [https://marvelapp.com/prototype/92bd2hd/screen/96821002](https://marvelapp.com/prototype/92bd2hd/screen/96821002)
 
-# UML
-[GoodFood Architecture Diagram](./GoodFood.drawio.pdf)
-
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
