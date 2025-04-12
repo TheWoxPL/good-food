@@ -18,6 +18,7 @@ import { ProtectedRoute } from './components/protected-route';
 import { YourCartPage } from './pages/YourCartPage';
 import { SupportPage } from './pages/SupportPage';
 import RegisterPage from './pages/RegisterPage';
+import { PaymentPage } from './pages/PaymentPage';
 
 const updateSW = registerSW({
   onNeedRefresh() {
@@ -42,6 +43,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/your-cart" element={<YourCartPage />} />
               <Route path="/your-orders" element={<YourOrdersPage />} />
               <Route path="/support-contact" element={<SupportPage />} />
+              <Route path="/payment" element={<PaymentPage />} />
               <Route
                 path="/restaurants/product-list"
                 element={<ProductListPage />}
