@@ -73,7 +73,7 @@ export const RestaurantList = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar onSearchChange={setSearchTerm} />
-      <div className="flex-1 overflow-auto p-4 mt-10 mb-8">
+      <div className="flex-1 overflow-auto p-4 mt-12 mb-8">
         {restaurants.length === 0 && <Spinner />}
         {restaurants.filter((restaurant) =>
           restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -110,44 +110,59 @@ export const RestaurantList = () => {
       </div>
 
       {selectedRestaurant && (
-        <div className="fixed inset-0 z-2 bg-white bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg w-full max-w-lg">
-            <h2 className="text-xl font-semibold mb-4">
-              {selectedRestaurant.name} - Food List
-            </h2>
-            <ul className="mb-4">
-              {products.map((product) => (
-                <li
-                  key={product.id}
-                  className="flex items-center text-gray-700 mb-4 bg-gray-100 p-4 rounded-lg shadow"
-                  onClick={() => navigate(`/product/${product.id}`)}
-                >
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="w-16 h-16 rounded-lg object-cover mr-4"
-                  />
-                  <div className="flex-1">
-                    <span className="block font-semibold">{product.name}</span>
-                    <span className="block text-gray-500">
-                      ${product.price}
-                    </span>
-                  </div>
-                  <Button
-                    variant="default"
-                    className="ml-4 rounded-lg"
-                    onClick={(event) => {
-                      handleAddProduct(event, product);
-                    }}
+        <div className="fixed w-full h-screen z-1 backdrop-blur-xs bg-black/10 ">
+          <div className="fixed inset-0 z-2 flex justify-center items-center">
+            <div className="bg-white p-4 rounded-lg w-full max-w-lg m-3">
+              <h2 className="text-xl font-semibold mb-4">
+                {selectedRestaurant.name} - Food List
+              </h2>
+              <ul className="mb-4 max-h-110 overflow-y-auto">
+                {products.map((product) => (
+                  <li
+                    key={product.id}
+                    className="flex items-center text-gray-700 mb-4 bg-gray-100 p-4 rounded-lg shadow"
+                    onClick={() => navigate(`/product/${product.id}`)}
                   >
-                    +
-                  </Button>
-                </li>
-              ))}
-            </ul>
-            <Button variant="default" onClick={handleClose}>
-              Close
-            </Button>
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="w-16 h-16 rounded-lg object-cover mr-4"
+                    />
+                    <div className="flex-1">
+                      <span className="block font-semibold">
+                        {product.name}
+                      </span>
+                      <span className="block text-gray-500">
+                        ${product.price}
+                      </span>
+                    </div>
+                    <Button
+                      variant="default"
+                      className="ml-4 rounded-lg transition-transform transform active:scale-90 bg-black hover:bg-gray-800 text-white"
+                      onClick={(event) => {
+                        handleAddProduct(event, product);
+                        event.currentTarget.textContent = 'Added';
+                        event.currentTarget.classList.remove(
+                          'bg-black',
+                          'hover:bg-gray-800'
+                        );
+                        event.currentTarget.classList.add(
+                          'bg-green-500',
+                          'hover:bg-green-600'
+                        );
+                        event.currentTarget.disabled = true;
+                      }}
+                      disabled={false}
+                    >
+                      +
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+              <Button variant="default" onClick={handleClose}>
+                Close
+              </Button>
+            </div>
           </div>
         </div>
       )}

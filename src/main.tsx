@@ -8,6 +8,7 @@ import {
   HomePage,
   ProductPage,
   YourOrdersPage,
+  ProductListPage,
 } from './pages/';
 import { registerSW } from 'virtual:pwa-register';
 
@@ -41,6 +42,10 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/your-cart" element={<YourCartPage />} />
               <Route path="/your-orders" element={<YourOrdersPage />} />
               <Route path="/support-contact" element={<SupportPage />} />
+              <Route
+                path="/restaurants/product-list"
+                element={<ProductListPage />}
+              />
             </Route>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
