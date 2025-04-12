@@ -7,7 +7,7 @@ import {
   Package,
   LogOut,
   Pizza,
-  Mail,
+  PhoneCall,
   Headset,
 } from 'lucide-react';
 import { UserAuth } from '@/context';
@@ -97,12 +97,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isVisible, onClose }) => {
                 <Headset className="w-5 h-5" />
                 <span>Support Contact</span>
               </span>
-              <span
-                className="block px-4 py-2 rounded-lg hover:bg-gray-600 cursor-pointer flex items-center space-x-2"
-                onClick={() => navigate('/send-email')}
-              >
-                <Mail className="w-5 h-5" />
-                <span>Send Email</span>
+              <span className="block px-4 py-2 rounded-lg hover:bg-gray-600 cursor-pointer flex items-center space-x-2">
+                <PhoneCall className="w-5 h-5" />
+                <span>
+                  <a href="tel:+000000000" className="btn">
+                    Call Us
+                  </a>
+                </span>
               </span>
             </div>
           </div>
