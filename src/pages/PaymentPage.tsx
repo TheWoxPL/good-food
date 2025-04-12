@@ -4,26 +4,30 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Label } from '@/components/ui/label';
 import { UserOrderContext } from '@/context';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { LocateFixed } from 'lucide-react';
 import { HandCoins } from 'lucide-react';
+import { PaymentSuccess } from '@/components/payment-success';
 
 export const PaymentPage = () => {
   const { order } = UserOrderContext();
-  const navigate = useNavigate();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [paymentMethod, setPaymentMethod] = useState('on-site');
 
   const [city, setCity] = useState('');
   const [street, setStreet] = useState('');
   const [house, setHouse] = useState('');
   const [flat, setFlat] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [additionalInfo, setAdditionalInfo] = useState('');
 
   const [cityError, setCityError] = useState(false);
   const [streetError, setStreetError] = useState(false);
   const [houseError, setHouseError] = useState(false);
   const [flatError, setFlatError] = useState(false);
+
+  const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
 
   const isEmpty = (value: string) => value.trim() === '';
 
@@ -44,14 +48,16 @@ export const PaymentPage = () => {
 
   const handlePay = () => {
     if (!validateForm()) return;
-    console.log(paymentMethod);
-
-    alert('Your order will be delivered soon.');
-    navigate('/restaurants');
+    const audio = new Audio('/notification.mp3');
+    audio.play().catch((error) => {
+      console.error('Error playing sound:', error);
+    });
+    setIsPaymentSuccess(true);
   };
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col p-4 sm:p-6 gap-6">
+      {isPaymentSuccess && <PaymentSuccess />}
       <h1 className="text-xl font-bold text-gray-800 mb-2">
         We are just one step away...
       </h1>
@@ -139,6 +145,7 @@ export const PaymentPage = () => {
           className="bg-white"
           value=""
           placeholder="Additional notes (optional)"
+          onChange={(e) => setAdditionalInfo(e.target.value)}
         />
       </div>
 
