@@ -5,6 +5,8 @@
 
 [https://marvelapp.com/prototype/92bd2hd/screen/96821002](https://marvelapp.com/prototype/92bd2hd/screen/96821002)
 
+# UML
+[GoodFood Architecture Diagram](./GoodFood.drawio.pdf)
 
 # React + TypeScript + Vite
 
