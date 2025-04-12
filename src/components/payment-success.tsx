@@ -13,7 +13,7 @@ export const PaymentSuccess = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-green-50 p-4">
+    <div className="flex absolute w-100% h-100% flex-col items-center justify-center h-screen bg-green-50 p-4 z-4 left-0 top-0">
       <CheckCircle className="text-green-600 w-20 h-20 mb-4 animate-bounce" />
       <h1 className="text-3xl font-bold text-green-700 mb-2">
         Payment Successful!

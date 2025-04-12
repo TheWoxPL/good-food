@@ -19,7 +19,7 @@ export const PaymentPage = () => {
   const [street, setStreet] = useState('');
   const [house, setHouse] = useState('');
   const [flat, setFlat] = useState('');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [additionalInfo, setAdditionalInfo] = useState('');
 
   const [cityError, setCityError] = useState(false);
@@ -143,7 +143,7 @@ export const PaymentPage = () => {
         </div>
         <Input
           className="bg-white"
-          value=""
+          value={additionalInfo}
           placeholder="Additional notes (optional)"
           onChange={(e) => setAdditionalInfo(e.target.value)}
         />
