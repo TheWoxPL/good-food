@@ -5,10 +5,6 @@
 
 [https://marvelapp.com/prototype/92bd2hd/screen/96821002](https://marvelapp.com/prototype/92bd2hd/screen/96821002)
 
-#UML
-
-![UML](./GoodFood.drawio.png)
-
 
 # React + TypeScript + Vite
 
