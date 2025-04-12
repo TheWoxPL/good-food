@@ -34,10 +34,10 @@ export const YourCartPage = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen pb-4 px-2 sm:px-4">
-      <div className="p-4 fixed top-0">
+      <div className="p-4 fixed -top-2 -left-2">
         <Button
           variant="ghost"
-          className="bg-white bg-opacity-75 hover:bg-opacity-100 text-gray-800 px-4 py-2 rounded-lg shadow"
+          className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:bg-opacity-100 text-gray-800 px-4 py-2 rounded-lg shadow"
           onClick={handleBack}
         >
           ← Back

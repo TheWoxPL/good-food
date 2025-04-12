@@ -43,16 +43,16 @@ export const SupportPage = () => {
     e.preventDefault();
 
     const newErrors: { platform?: string; category?: string } = {};
-    if (!platform) newErrors.platform = 'Wybór platformy jest wymagany';
+    if (!platform) newErrors.platform = 'Platform selection is required';
     if (!category)
-      newErrors.category = 'Wybór gdzie wystąpił problem jest wymagany';
+      newErrors.category = 'Selection of where the problem occured is required';
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) return;
 
     alert(
-      'Dziękujemy za zgłoszenie, informacja zwrotna dostarczona zostanie niezwłocznie drogą mailową.'
+      'Thank you for your submission. You will receive feedback via email soon.'
     );
 
     setPlatform('');
@@ -64,30 +64,27 @@ export const SupportPage = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 font-sans text-gray-800 min-h-screen">
-      <h1 className="text-4xl font-bold text-center mb-6">
-        Kontakt z wsparciem
-      </h1>
+      <h1 className="text-4xl font-bold text-center mb-6">Contact Support</h1>
 
       <Alert className="mb-6">
-        <AlertTitle>Potrzebujesz pomocy?</AlertTitle>
+        <AlertTitle>Need help?</AlertTitle>
         <AlertDescription>
-          Jeśli napotkałeś problem, wypełnij poniższy formularz. Odezwiemy się
-          jak najszybciej!
+          If you've encountered an issue, please fill out the form below. We
+          will get back to you as soon as possible!
         </AlertDescription>
       </Alert>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-sm">
-        {/* Imię i nazwisko */}
+        {/* Full Name */}
         <div className="bg-gray-100 p-4 rounded-md">
-          <strong>Imię i nazwisko:</strong>{' '}
-          {user?.displayName || 'Nieznany użytkownik'}
+          <strong>Full Name:</strong> {user?.displayName || 'Unknown User'}
         </div>
 
-        {/* Email z ikoną i tooltipem */}
+        {/* Email with icon and tooltip */}
         <div className="bg-gray-100 p-4 rounded-md flex items-center gap-2">
           <span>
-            <strong>Adres e-mail:</strong>{' '}
-            {maskEmail(user?.email || 'brak@email.com')}
+            <strong>Email Address:</strong>{' '}
+            {maskEmail(user?.email || 'noemail@domain.com')}
           </span>
           <TooltipProvider>
             <Tooltip>
@@ -95,7 +92,7 @@ export const SupportPage = () => {
                 <Info className="w-4 h-4 text-gray-500 cursor-pointer" />
               </TooltipTrigger>
               <TooltipContent side="right">
-                <p>Na ten mail zostanie wysłana informacja zwrotna</p>
+                <p>Feedback will be sent to this email</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -105,12 +102,12 @@ export const SupportPage = () => {
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <Label htmlFor="platform" className="mb-1">
-            Wybierz platformę
+            Select Platform
           </Label>
           <div className="w-full">
             <Select value={platform} onValueChange={setPlatform} required>
               <SelectTrigger id="platform" className="w-full">
-                <SelectValue placeholder="Wybierz platformę" />
+                <SelectValue placeholder="Select platform" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="android">Android</SelectItem>
@@ -127,22 +124,20 @@ export const SupportPage = () => {
 
         <div>
           <Label htmlFor="category" className="mb-1">
-            Gdzie wystąpił problem
+            Where did the issue occur?
           </Label>
           <div className="w-full">
             <Select value={category} onValueChange={setCategory} required>
               <SelectTrigger id="category" className="w-full">
-                <SelectValue placeholder="Wybierz temat" />
+                <SelectValue placeholder="Select issue type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="logowanie">Problemy z logowaniem</SelectItem>
-                <SelectItem value="platnosci">Płatności</SelectItem>
-                <SelectItem value="dzialanie">Działanie aplikacji</SelectItem>
-                <SelectItem value="zamowienie">
-                  Problem z zamówieniem
-                </SelectItem>
-                <SelectItem value="dostawa">Problem z dostawą</SelectItem>
-                <SelectItem value="inne">Inne</SelectItem>
+                <SelectItem value="logowanie">Login issues</SelectItem>
+                <SelectItem value="platnosci">Payments</SelectItem>
+                <SelectItem value="dzialanie">App functionality</SelectItem>
+                <SelectItem value="zamowienie">Order issue</SelectItem>
+                <SelectItem value="dostawa">Delivery issue</SelectItem>
+                <SelectItem value="inne">Other</SelectItem>
               </SelectContent>
             </Select>
             {errors.category && (
@@ -153,33 +148,33 @@ export const SupportPage = () => {
 
         <div>
           <Label htmlFor="subject" className="mb-1">
-            Temat
+            Subject
           </Label>
           <Input
             id="subject"
             value={subject}
             maxLength={100}
             onChange={(e) => setSubject(e.target.value)}
-            placeholder="Wpisz temat"
+            placeholder="Enter subject"
             required
           />
         </div>
 
         <div>
           <Label htmlFor="description" className="mb-1">
-            Opis problemu
+            Issue Description
           </Label>
           <Textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Opisz problem jak najdokładniej"
+            placeholder="Describe the issue in detail"
             required
           />
         </div>
 
         <Button type="submit" className="w-full">
-          Wyślij zgłoszenie
+          Submit Request
         </Button>
       </form>
     </div>

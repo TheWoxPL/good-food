@@ -8,9 +8,11 @@ import { useState } from 'react';
 import { LocateFixed } from 'lucide-react';
 import { HandCoins } from 'lucide-react';
 import { PaymentSuccess } from '@/components/payment-success';
+import { useNavigate } from 'react-router';
 
 export const PaymentPage = () => {
   const { order } = UserOrderContext();
+  const navigate = useNavigate();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [paymentMethod, setPaymentMethod] = useState('on-site');
@@ -56,7 +58,16 @@ export const PaymentPage = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col p-4 sm:p-6 gap-6">
+    <div className="bg-gray-100 min-h-screen flex flex-col p-4 sm:p-6 gap-4">
+      <div className=" sticky">
+        <Button
+          variant="ghost"
+          className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:bg-opacity-100 text-gray-800 px-4 py-2 rounded-lg shadow"
+          onClick={() => navigate(-1)}
+        >
+          ← Back
+        </Button>
+      </div>
       {isPaymentSuccess && <PaymentSuccess />}
       <h1 className="text-xl font-bold text-gray-800 mb-2">
         We are just one step away...
@@ -140,13 +151,13 @@ export const PaymentPage = () => {
               </p>
             )}
           </div>
+          <Input
+            className="bg-white"
+            value={additionalInfo}
+            placeholder="Additional notes (optional)"
+            onChange={(e) => setAdditionalInfo(e.target.value)}
+          />
         </div>
-        <Input
-          className="bg-white"
-          value={additionalInfo}
-          placeholder="Additional notes (optional)"
-          onChange={(e) => setAdditionalInfo(e.target.value)}
-        />
       </div>
 
       <div>
