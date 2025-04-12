@@ -11,27 +11,28 @@ export const HomePage = () => {
   };
 
   return (
-    <div
-      className="w-full h-screen flex flex-col items-center justify-end relative overflow-hidden"
-      style={{
-        backgroundImage: "url('/src/assets/images/background.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <Card className="w-full rounded-t-2xl bg-amber-200 text-center p-4 z-10">
+    <div className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-b from-yellow-300 to-orange-400 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-40 h-40 bg-yellow-500 rounded-full blur-3xl opacity-30"></div>
+      <div className="absolute bottom-0 right-0 w-60 h-60 bg-orange-600 rounded-full blur-3xl opacity-30"></div>
+
+      <Card className="w-11/12 max-w-md rounded-3xl bg-white shadow-lg text-center p-6 z-10">
         <CardContent>
-          <h2 className="text-xl font-bold mb-2">Good Food</h2>
+          <h2 className="text-3xl font-extrabold text-gray-800 mb-4">
+            Good Food
+          </h2>
           <img
             src="/goodFood.png"
             alt="Good Food Logo"
-            className="w-48 h-48 mx-auto object-contain mb-4"
+            className="w-40 h-40 mx-auto object-contain mb-6"
           />
+          <p className="text-gray-600 mb-6">
+            Discover delicious meals and order your favorites with ease.
+          </p>
           <Button
-            className="bg-gray-800 text-white px-8 py-2 rounded-xl"
+            className="bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white px-8 py-3 rounded-full shadow-md transition-transform transform hover:scale-105"
             onClick={NavigateToLogin}
           >
-            Start
+            Get Started
           </Button>
         </CardContent>
       </Card>
