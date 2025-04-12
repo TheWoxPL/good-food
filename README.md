@@ -1,3 +1,11 @@
+# Netlify link
+[https://good-food-site.netlify.app/](https://good-food-site.netlify.app/)
+
+# Marvelapp
+
+[https://marvelapp.com/prototype/92bd2hd/screen/96821002](https://marvelapp.com/prototype/92bd2hd/screen/96821002)
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
