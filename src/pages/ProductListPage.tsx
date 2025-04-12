@@ -51,7 +51,7 @@ export const ProductListPage = () => {
           {popupMessage}
         </div>
       )}
-      <div className="p-4">
+      <div className="p-4 fixed top-0">
         <Button
           variant="ghost"
           className="bg-white bg-opacity-75 hover:bg-opacity-100 text-gray-800 px-4 py-2 rounded-lg shadow"
@@ -64,6 +64,7 @@ export const ProductListPage = () => {
         {products.map((product: Product) => (
           <div
             key={product.id}
+            onClick={() => navigate(`/product/${product.id}`)}
             className="shadow-lg rounded-lg bg-white mb-4 flex flex-col sm:flex-row sm:items-center overflow-hidden"
           >
             <div className="w-full sm:w-32 h-48 sm:h-24">

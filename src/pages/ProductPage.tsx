@@ -4,17 +4,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { db } from '@/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { UserOrderContext } from '@/context';
+import { Product } from '@/types';
 
 export const ProductPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
+  const [popupMessage, setPopupMessage] = useState<string | null>(null);
+  const { addProduct } = UserOrderContext();
 
-  const [product, setProduct] = useState<{
-    name: string;
-    price: number;
-    description: string;
-    imageUrl: string;
-  } | null>(null);
+  const [product, setProduct] = useState<Product>();
 
   const handleBack = () => {
     navigate(-1);
@@ -24,31 +23,45 @@ export const ProductPage = () => {
     const fetchProduct = async () => {
       if (!productId) return;
 
-      try {
-        const productRef = doc(db, 'products', productId);
-        const productSnap = await getDoc(productRef);
+      const productRef = doc(db, 'products', productId);
+      const productSnap = await getDoc(productRef);
 
-        if (productSnap.exists()) {
-          const productData = productSnap.data();
-          setProduct({
-            name: productData.name,
-            price: productData.price,
-            description: productData.description,
-            imageUrl: productData.imageUrl,
-          });
-        } else {
-          console.error('No such product!');
-        }
-      } catch (error) {
-        console.error('Error fetching product:', error);
+      if (productSnap.exists()) {
+        const productData = productSnap.data();
+        setProduct({
+          id: productId,
+          name: productData.name,
+          price: productData.price,
+          restaurantId: productData.restaurantId,
+          imageUrl: productData.imageUrl,
+          description: productData.description,
+        });
       }
     };
 
     fetchProduct();
   }, [productId]);
 
+  const handleAddProduct = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    product: Product
+  ) => {
+    event.stopPropagation();
+    addProduct(product);
+    setPopupMessage(`Product "${product.name}" added to order!`);
+
+    setTimeout(() => {
+      setPopupMessage(null);
+    }, 3000);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gray-100">
+      {popupMessage && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+          {popupMessage}
+        </div>
+      )}
       <div className="p-4">
         <Button
           variant="ghost"
@@ -78,7 +91,10 @@ export const ProductPage = () => {
             <span className="text-2xl sm:text-3xl font-bold text-black mb-4 sm:mb-0">
               {product?.price}$
             </span>
-            <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg">
+            <Button
+              className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg"
+              onClick={(event) => product && handleAddProduct(event, product)}
+            >
               Add to Order
             </Button>
           </div>
