@@ -1,7 +1,7 @@
 export interface Product {
-  id: string; // Firestore document ID
+  id: string;
   name: string;
-  price: number; // Optional image URL
+  price: number;
   restaurantId: string;
   imageUrl?: string;
   description?: string;

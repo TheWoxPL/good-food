@@ -86,12 +86,10 @@ export const SupportPage = () => {
       </Alert>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-sm">
-        {/* Full Name */}
         <div className="bg-gray-100 p-4 rounded-md">
           <strong>Full Name:</strong> {user?.displayName || 'Unknown User'}
         </div>
 
-        {/* Email with icon and tooltip */}
         <div className="bg-gray-100 p-4 rounded-md flex items-center gap-2">
           <span>
             <strong>Email Address:</strong>{' '}
