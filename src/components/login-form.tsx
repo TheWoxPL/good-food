@@ -50,7 +50,7 @@ export function LoginForm({
     } catch (error: any) {
       if (navigator.vibrate) {
         console.log('i am vibrating');
-        navigator.vibrate(200);
+        navigator.vibrate([200, 200, 200]);
       }
 
       if (error.code === 'auth/wrong-password') {

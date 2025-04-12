@@ -5,7 +5,6 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Label } from '@/components/ui/label';
 import { UserOrderContext } from '@/context';
 import { useState } from 'react';
-import { LocateFixed } from 'lucide-react';
 import { HandCoins } from 'lucide-react';
 import { PaymentSuccess } from '@/components/payment-success';
 import { useNavigate } from 'react-router';
@@ -95,10 +94,6 @@ export const PaymentPage = () => {
       <div className="space-y-2">
         <div className="flex items-center justify-between mb-1">
           <Label className="text-gray-700 font-medium">Delivery address</Label>
-          <Button variant="outline" size="sm">
-            <LocateFixed className="w-4 h-4 mr-1" />
-            Locate me
-          </Button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
