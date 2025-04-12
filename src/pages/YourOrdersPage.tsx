@@ -8,7 +8,6 @@ export const YourOrdersPage = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      // Replace with actual user ID
       const orders = await getAllOrders();
       setAllOrders(orders);
       console.log('Fetched orders:', orders);
@@ -17,18 +16,24 @@ export const YourOrdersPage = () => {
   }, [getAllOrders]);
 
   if (allOrders === undefined) {
-    return <div></div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Loading...
+      </div>
+    );
   }
 
   return (
-    <div className="font-sans p-3 bg-gradient-to-r from-yellow-400 to-yellow-600 min-h-screen">
-      <h1 className="text-center text-yellow-900 text-2xl font-bold mb-5">
+    <div className="font-sans p-6 bg-gradient-to-br from-yellow-700 via-yellow-500 to-yellow-600 min-h-screen">
+      <h1 className="text-center text-yellow-900 text-3xl font-extrabold mb-8">
         Your Orders
       </h1>
       {allOrders.length === 0 ? (
-        <p className="text-center text-gray-500">You have no orders.</p>
+        <p className="text-center text-gray-700 text-lg font-medium">
+          You have no orders.
+        </p>
       ) : (
-        <ul className="list-none p-0 pb-20">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {allOrders
             .filter(
               (order) =>
@@ -40,33 +45,35 @@ export const YourOrdersPage = () => {
             .map((order) => (
               <li
                 key={order.id}
-                className={`mb-5 p-4 border-2 rounded-lg shadow-md relative ${
+                className={`p-6 border-2 rounded-lg shadow-lg relative transition-transform transform hover:scale-105 ${
                   order.status === 'pending'
-                    ? 'border-yellow-700 bg-yellow-600 text-white'
-                    : 'border-yellow-700 bg-white'
+                    ? 'border-red-600 border-3 bg-gradient-to-br from-gray-100 to-gray-380 text-white'
+                    : 'border-gray-700 border-3 bg-gradient-to-br from-gray-250 to-gray-100'
                 }`}
               >
                 {order.status === 'pending' && (
-                  <span className="absolute top-2 right-2 text-red-800 font-bold text-normal">
+                  <span className="absolute top-2 right-2 bg-red-100 text-red-800 font-bold text-xs px-2 py-1 rounded-full">
                     Pending
                   </span>
                 )}
-                <p className="text-gray-600 mb-2">
-                  <strong>Items:</strong>
-                </p>
+                {order.status === 'done' && (
+                  <span className="absolute top-2 right-2 bg-green-100 text-green-800 font-bold text-xs px-2 py-1 rounded-full">
+                    Done
+                  </span>
+                )}
+                <p className="text-black">Order</p>
                 <ul className="list-disc pl-5 text-gray-700">
                   {order.items.map((item) => (
                     <li key={item.productId} className="mb-1">
-                      <strong className="text-yellow-800">Quantity:</strong>
-                      {item.quantity}
+                      {item.name} - {item.quantity}
                     </li>
                   ))}
                 </ul>
-                <p className="text-gray-600 mt-3 text-right">
+                <p className="text-gray-800 mt-4 text-right">
                   <span className="block">
                     <strong>Total:</strong>
                   </span>
-                  <span className="block text-yellow-900 font-bold text-lg">
+                  <span className="block text-yellow-900 font-extrabold text-xl">
                     ${order.totalAmount.toFixed(2)}
                   </span>
                 </p>
@@ -74,11 +81,14 @@ export const YourOrdersPage = () => {
             ))}
         </ul>
       )}
-      <div className="fixed bottom-0 left-0 w-full bg-white text-yellow-700 text-center py-3 shadow-lg px-4 rounded-t-lg mt-5">
-        <strong>Total of All Orders:</strong> $
-        {allOrders
-          .reduce((sum, order) => sum + order.totalAmount, 0)
-          .toFixed(2)}
+      <div className="fixed bottom-0 left-0 w-full bg-white text-yellow-700 text-center py-4 shadow-lg px-6 rounded-t-lg mt-8">
+        <strong className="text-lg">Total of All Orders:</strong>{' '}
+        <span className="text-yellow-900 font-extrabold text-xl">
+          $
+          {allOrders
+            .reduce((sum, order) => sum + order.totalAmount, 0)
+            .toFixed(2)}
+        </span>
       </div>
     </div>
   );
