@@ -59,11 +59,7 @@ export const PaymentPage = () => {
 
   return (
     <div className="relative bg-gray-100 min-h-screen flex flex-col p-4 sm:p-6 gap-4">
-      {isPaymentSuccess && (
-        <div className="absolute inset-0 h-full w-full bg-green-50 bg-opacity-50 flex items-center justify-center z-50">
-          <PaymentSuccess />
-        </div>
-      )}
+      {isPaymentSuccess && <PaymentSuccess />}
       <div className=" sticky">
         <Button
           variant="ghost"
